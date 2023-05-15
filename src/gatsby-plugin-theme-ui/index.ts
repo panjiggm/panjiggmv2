@@ -19,7 +19,7 @@ export default {
     modes: {
       dark: {
         text: '#fff',
-        background: '#000',
+        background: '#212121',
         primary: '#ff6666',
         secondary: '#ffd3b2',
         muted: '#ccc',
@@ -311,7 +311,7 @@ export default {
     darkButton: {
       variant: 'buttons.defaultBtn',
       backgroundColor: 'dark',
-      color: 'white',
+      color: 'background',
       '&:hover': {
         boxShadow: 'rgba(0, 0, 0, 0.5) 0px 12px 24px -10px',
       },

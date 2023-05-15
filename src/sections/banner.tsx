@@ -12,6 +12,7 @@ import {
   Link,
 } from 'theme-ui';
 import { motion } from 'framer-motion';
+import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 
 // Icons
 import { HiDownload } from 'react-icons/hi';
@@ -73,7 +74,7 @@ export const Banner = () => {
       transition={{ duration: 0.3, ease: easeing }}
       sx={styleBanner}
     >
-      <Container sx={{ display: 'flex', alignItems: 'center' }}>
+      <Container sx={styleFlexContainer}>
         <Box sx={styleContaierBox}>
           <Heading as="h1" variant="heroPrimary">
             <AnimatedTextCharacter text="Hi! Panji here." />
@@ -157,15 +158,7 @@ export const Banner = () => {
               sx={{ justifyContent: 'center', alignItems: 'center' }}
             >
               <motion.div
-                style={{
-                  width: 340,
-                  height: 340,
-                  borderRadius: 500,
-                  backgroundColor: '#8ae287',
-                  backgroundImage:
-                    'linear-gradient(43deg, #8ae287 0%, #4158D0 30%, #C850C0 66%, #FFCC70 100%)',
-                  position: 'relative',
-                }}
+                sx={styleRainbowBg}
                 animate={{ rotate: 360 }}
                 transition={{
                   ease: 'linear',
@@ -173,17 +166,10 @@ export const Banner = () => {
                   repeat: Infinity,
                 }}
               />
-              <Image
-                src={'../../ava.webp'}
+              <StaticImage
+                src="../images/ava.webp"
                 alt="banner"
-                style={{
-                  width: 340,
-                  height: 340,
-                  borderRadius: 200,
-                  position: 'absolute',
-                  left: 'auto',
-                  right: 'auto',
-                }}
+                sx={styleAva}
               />
             </Flex>
           </motion.div>
@@ -204,6 +190,18 @@ const styleBanner: ThemeUICSSObject = {
   backgroundColor: 'background',
 };
 
+const styleFlexContainer: ThemeUICSSObject = {
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: [
+    'column-reverse',
+    'column-reverse',
+    'column-reverse',
+    'row',
+  ],
+  gap: [50],
+};
+
 const styleContaierBox: ThemeUICSSObject = {
   width: ['100%', null, '85%', '55%', '50%', '55%'],
   display: 'flex',
@@ -214,32 +212,30 @@ const styleContaierBox: ThemeUICSSObject = {
 };
 
 const styleImageBox: ThemeUICSSObject = {
-  display: ['none', null, null, 'flex'],
   justifyContent: 'center',
   alignItems: 'center',
-  // overflow: 'hidden',
+  overflow: 'hidden',
   width: '100%',
   height: '100%',
-  // ml: [
-  //   0,
-  //   null,
-  //   null,
-  //   '-110px',
-  //   '-115px',
-  //   '-150px',
-  //   '-210px',
-  //   '-270px',
-  // ],
-  // mr: [
-  //   0,
-  //   null,
-  //   null,
-  //   '-145px',
-  //   '-160px',
-  //   '-180px',
-  //   '-220px',
-  //   '-290px',
-  // ],
-  // mt: [0, null, null, null, 4, 7, 0],
-  // mb: [0, null, null, null, '-45px', '-70px', null, '-115px'],
+};
+
+const styleRainbowBg: ThemeUICSSObject = {
+  width: [200, 150, 200, 225, 340],
+  height: [200, 150, 200, 225, 340],
+  borderRadius: 500,
+  backgroundColor: '#8ae287',
+  backgroundImage:
+    'linear-gradient(43deg, #8ae287 0%, #4158D0 30%, #C850C0 66%, #FFCC70 100%)',
+  position: 'relative',
+  left: 'auto',
+  right: 'auto',
+};
+
+const styleAva: ThemeUICSSObject = {
+  width: [200, 150, 200, 225, 340],
+  height: [200, 150, 200, 225, 340],
+  borderRadius: 200,
+  position: 'absolute',
+  left: 'auto',
+  right: 'auto',
 };

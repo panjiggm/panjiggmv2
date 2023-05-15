@@ -7,7 +7,6 @@ import {
   Text,
   ThemeUIStyleObject,
   jsx,
-  useColorMode,
 } from 'theme-ui';
 import { motion } from 'framer-motion';
 
@@ -39,7 +38,7 @@ export const Header: FC<HeaderProps> = ({
     >
       <Container sx={styleContainer}>
         <AnimatedText variants={header} sx={styleLogo}>
-          panji<span>ggm</span> {colorMode}
+          panji<span>ggm</span>
         </AnimatedText>
 
         <Button
