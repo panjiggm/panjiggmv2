@@ -10,9 +10,10 @@ import {
   Button,
   Image,
   Link,
+  useColorMode,
 } from 'theme-ui';
 import { motion } from 'framer-motion';
-import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
+import { StaticImage } from 'gatsby-plugin-image';
 
 // Icons
 import { HiDownload } from 'react-icons/hi';
@@ -25,7 +26,7 @@ import {
 } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 
-// Motions
+// Utils
 import {
   btnGroup,
   easeing,
@@ -33,13 +34,21 @@ import {
   stagger,
   star,
 } from '../utils/motions';
+import { options } from '../utils/particles';
+import theme from '../gatsby-plugin-theme-ui';
 
 // Components
 import { AnimatedTextCharacter } from '../components';
 
-// Assets
+// Particels
+import Particles from 'react-tsparticles';
+import type { Engine } from 'tsparticles-engine';
+import { loadFull } from 'tsparticles';
+import { useCallback } from 'react';
 
 export const Banner = () => {
+  const [colorMode] = useColorMode();
+
   let AnimatedText = motion(Text);
   let AnimatedFlex = motion(Flex);
   let AnimatedButton = motion(Button);
@@ -67,6 +76,11 @@ export const Banner = () => {
     },
   ];
 
+  const customInit = useCallback(async (engine: Engine) => {
+    // this adds the bundle to tsParticles
+    await loadFull(engine);
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0 }}
@@ -74,6 +88,23 @@ export const Banner = () => {
       transition={{ duration: 0.3, ease: easeing }}
       sx={styleBanner}
     >
+      <Particles
+        id="tsparticles"
+        options={{
+          ...options,
+          particles: {
+            ...options.particles,
+            color: {
+              ...options.particles.color,
+              value:
+                colorMode === 'dark'
+                  ? theme.colors.modes.dark.text
+                  : theme.colors.text,
+            },
+          },
+        }}
+        init={customInit}
+      />
       <Container sx={styleFlexContainer}>
         <Box sx={styleContaierBox}>
           <Heading as="h1" variant="heroPrimary">
@@ -155,7 +186,10 @@ export const Banner = () => {
             transition={{ duration: 0.5, delay: 0.8 }}
           >
             <Flex
-              sx={{ justifyContent: 'center', alignItems: 'center' }}
+              sx={{
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
             >
               <motion.div
                 sx={styleRainbowBg}
@@ -200,6 +234,7 @@ const styleFlexContainer: ThemeUICSSObject = {
     'row',
   ],
   gap: [50],
+  zIndex: 10000,
 };
 
 const styleContaierBox: ThemeUICSSObject = {
